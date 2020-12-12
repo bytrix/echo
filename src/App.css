@@ -1,5 +1,22 @@
-.App {
+/* .App {
   text-align: center;
+} */
+
+a {
+  color: #000000;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+html::-webkit-scrollbar {
+  width: 2px;
+  background-color: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: #000000;
 }
 
 .App-logo {
