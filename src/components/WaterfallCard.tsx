@@ -1,7 +1,7 @@
 import { styled } from "baseui"
-import { Button } from 'baseui/button'
+import { Button } from "baseui/button"
 import React from "react"
-import { AiOutlineHeart, AiOutlineMessage } from 'react-icons/ai'
+import { AiOutlineHeart, AiOutlineMessage } from "react-icons/ai"
 import { Link } from "react-router-dom"
 
 const CardWrapper = styled('div', {
@@ -65,16 +65,18 @@ const CardActionButtonStat = styled('span', {
 const WaterfallCard = () => {
     return (
         <CardWrapper>
-            <Link to='/p'>
+            <Link to="/p">
                 <CardImage
                     src='http://ci.xiaohongshu.com/1165d45c-26c7-5c9f-fa45-daf5026722a1?imageView2/2/w/1080/format/jpg'
                 />
             </Link>
-            <CardTitle to='/p'>厦门探店·颠倒博物馆</CardTitle>
+            <CardTitle to="/p">厦门探店·颠倒博物馆</CardTitle>
             <CardAction>
                 <User>
-                    <UserAvatar src='https://img.xiaohongshu.com/avatar/5f75d88ca8204500012c1379.jpg@240w_240h_90q_1e_1c_1x.jpg' />
-                    <Username>甜菜</Username>
+                    <UserAvatar src="https://img.xiaohongshu.com/avatar/5f75d88ca8204500012c1379.jpg@240w_240h_90q_1e_1c_1x.jpg" />
+                    <Link to="/p">
+                        <Username>甜菜</Username>
+                    </Link>
                 </User>
                 <CardActionButton>
                     <AiOutlineHeart size={16} />

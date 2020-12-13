@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Switch>
-          <Route path='/p'>
+          <Route path="/p">
             <Post />
           </Route>
           <Route path='/'>
