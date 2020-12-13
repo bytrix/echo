@@ -11,7 +11,7 @@ const Waterfall = () => {
     return (
         <Wrapper>
             {Array(10).fill(0).map(_ => (
-                <WaterfallCard />
+                <WaterfallCard key={_} />
             ))}
         </Wrapper>
     )
