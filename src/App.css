@@ -1,13 +1,25 @@
 /* .App {
   text-align: center;
 } */
-
 a {
   color: #000000;
 }
 
-html {
-  overflow-y: scroll;
+button[aria-label="Close"] {
+  background-color: #ffffff;
+  right: -18px;
+  top: -18px;
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  border-radius: 100%;
+}
+
+div[role="dialog"] > div {
+  margin: 0;
+}
+div[role="dialog"] > div > div {
+  margin-top: 0;
 }
 
 html::-webkit-scrollbar {

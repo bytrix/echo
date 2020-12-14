@@ -1,9 +1,10 @@
-import { Route } from 'react-router';
-import { BrowserRouter, Switch } from 'react-router-dom';
 import './App.css';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './components/Header';
-import Post from './pages/Post';
+import User from './pages/User';
 import Waterfall from './pages/Waterfall';
+import PostView from './pages/Post/PostView';
 
 function App() {
   return (
@@ -12,9 +13,12 @@ function App() {
         <Header />
         <Switch>
           <Route path="/p">
-            <Post />
+            <PostView />
           </Route>
-          <Route path='/'>
+          <Route path="/user">
+            <User />
+          </Route>
+          <Route path="/">
             <Waterfall />
           </Route>
         </Switch>

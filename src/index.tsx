@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { Provider as StyletronProvider } from 'styletron-react';
+import { Client as Styletron } from 'styletron-engine-atomic';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { Client as Styletron } from 'styletron-engine-atomic'
-import { Provider as StyletronProvider } from 'styletron-react'
+import store from './store';
+import { Provider } from 'mobx-react';
 
 const engine = new Styletron()
 
 ReactDOM.render(
   <React.StrictMode>
-    <StyletronProvider value={engine}>
-      <App />
-    </StyletronProvider>
+    <Provider store={store}>
+      <StyletronProvider value={engine}>
+        <App />
+      </StyletronProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

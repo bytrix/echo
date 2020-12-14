@@ -1,7 +1,7 @@
 import React from "react"
 import { styled } from "styletron-react"
 
-const Wrapper = styled('div', {
+const Container = styled('div', {
     display: 'flex',
     width: '970px',
     margin: '0 auto',
@@ -17,14 +17,16 @@ const CommentBox = styled('div', {
     flexDirection: 'column',
 })
 
-const SendBox = styled('input', {
+const SendBox = styled('textarea', {
     border: 'none',
     padding: '22px',
     fontSize: '1rem',
+    flex: 1,
     outline: "none",
     "::placeholder": {
         color: 'rgba(0,0,0,0.25)',
     },
+    resize: 'none'
 })
 
 const CommentListContainer = styled('div', {
@@ -74,7 +76,7 @@ const CommentText = styled('div', {
     //     color: '#ccc',
     //     display: 'block',
     //     margin: '6px 0px'
-    // }
+    // },
     padding: '10px'
 })
 
@@ -86,9 +88,9 @@ const CommentReply = styled('div', {
 
 const PostView = () => {
     return (
-        <Wrapper>
+        <Container>
             <Post>
-                <img alt='' style={{ width: '100%', height: 500, objectFit: 'cover', verticalAlign: 'bottom' }} src='http://ci.xiaohongshu.com/1165d45c-26c7-5c9f-fa45-daf5026722a1?imageView2/2/w/1080/format/jpg' />
+                <img alt='' style={{ width: '100%', height: 580, objectFit: 'cover', verticalAlign: 'bottom' }} src='http://ci.xiaohongshu.com/1165d45c-26c7-5c9f-fa45-daf5026722a1?imageView2/2/w/1080/format/jpg' />
             </Post>
             <CommentBox>
                 <CommentListContainer>
@@ -126,7 +128,7 @@ const PostView = () => {
                 </CommentListContainer>
                 <SendBox placeholder='第一神评就是你～' />
             </CommentBox>
-        </Wrapper>
+        </Container>
     )
 }
 
