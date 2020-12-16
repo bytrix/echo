@@ -5,6 +5,7 @@ import Header from './components/Header';
 import User from './pages/User';
 import Waterfall from './pages/Waterfall';
 import PostView from './pages/Post/PostView';
+import ExploreView from './pages/Explore/ExplorerView';
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
         <Switch>
           <Route path="/p">
             <PostView />
+          </Route>
+          <Route path="/explore">
+            <ExploreView />
           </Route>
           <Route path="/user">
             <User />

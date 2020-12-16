@@ -87,10 +87,16 @@ const CommentReply = styled('div', {
 })
 
 const PostView = () => {
+    // const { src } = props
     return (
         <Container>
             <Post>
-                <img alt='' style={{ width: '100%', height: 580, objectFit: 'cover', verticalAlign: 'bottom' }} src='http://ci.xiaohongshu.com/1165d45c-26c7-5c9f-fa45-daf5026722a1?imageView2/2/w/1080/format/jpg' />
+                <img
+                    alt=''
+                    style={{ width: '100%', height: 580, objectFit: 'cover', verticalAlign: 'bottom' }}
+                    src='http://ci.xiaohongshu.com/1165d45c-26c7-5c9f-fa45-daf5026722a1?imageView2/2/w/1080/format/jpg'
+                    // src={src}
+                    />
             </Post>
             <CommentBox>
                 <CommentListContainer>

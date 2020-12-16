@@ -10,14 +10,14 @@ const PostModal = (props: any) => {
         <Modal
             isOpen={PostModalStore.isOpen}
             ref={modalRef}
-            focusLock={true}
             size='auto'
             onClose={() => {
                 PostModalStore.close()
             }}
         >
             <ModalBody>
-                <PostView />
+                <PostView
+                />
             </ModalBody>
         </Modal>
     )

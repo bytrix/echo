@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { styled } from "styletron-react"
-import WaterfallCard from "../components/WaterfallCard"
-import PostModal from "./Post/PostModal"
+import WaterfallCard from "../../components/WaterfallCard"
+import PostModal from "../Post/PostModal"
 
 const Wrapper = styled('div', {
     width: '960px',
@@ -9,12 +9,12 @@ const Wrapper = styled('div', {
     columnCount: 4
 })
 
-const Waterfall = () => {
+const ExploreView = () => {
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 2000);
+        }, 2000)
     }, [])
     return (
         <Wrapper>
@@ -22,16 +22,13 @@ const Waterfall = () => {
             <>{Array(10).fill(0).map(_ => (
                 <WaterfallCard
                     key={_}
-                    src='http://ci.xiaohongshu.com/1165d45c-26c7-5c9f-fa45-daf5026722a1?imageView2/2/w/1080/format/jpg'
-                    title='厦门探店·颠倒博物馆'
+                    src='https://ci.xiaohongshu.com/43c5d41d-199e-3e67-88b3-795babfc6ecc?imageView2/2/w/540/format/jpg'
+                    title='隔壁布丁兄弟太硬核了，恕我告辞！'
                     loading={loading}
-                    // onLoad={(e: any) => {
-                    //     console.log('首页图片加载结束', e)
-                    // }}
                 />
             ))}</>
         </Wrapper>
     )
 }
 
-export default Waterfall
+export default ExploreView

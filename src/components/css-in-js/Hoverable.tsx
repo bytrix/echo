@@ -1,7 +1,6 @@
 import { styled } from "styletron-react"
 
 const Hoverable = styled('div', (props: any) => {
-    console.log('Hoverable props', props)
     const { src, size = 220 } = props
     return {
         width: `${size}px`,

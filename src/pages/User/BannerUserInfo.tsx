@@ -7,7 +7,6 @@ const UserInfo = styled('div', {
 
 const BtnWithCount = (props: any) => {
     const { children, count } = props
-    console.log('count', count, children)
     return (
         <div style={{
             cursor: 'pointer',
