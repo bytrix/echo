@@ -5,10 +5,11 @@ import { StatefulTooltip } from 'baseui/tooltip'
 import { StatefulMenu } from 'baseui/menu'
 import React from 'react';
 import { AiFillMessage, AiOutlineMore, AiOutlinePlus } from 'react-icons/ai';
-import Container from '../../components/css-in-js/Container';
-import WaterfallCard from '../../components/WaterfallCard';
+// import Container from '../../components/css-in-js/Container';
+import WaterfallCard, { WaterfallContainer } from '../../components/WaterfallCard';
 import PostModal from '../Post/PostModal';
 import BannerUserInfo from './BannerUserInfo';
+import { motion } from 'framer-motion';
 
 const Banner = styled('div', {
     padding: '22px',
@@ -17,6 +18,43 @@ const Banner = styled('div', {
     boxShadow: '0 20px 40px -20px rgba(0,0,0,0.08)'
 })
 
+// const EchoButton = styled(motion.button, {
+//     backgroundColor: '#FFBB00',
+//     border: 'none',
+//     padding: '10px 20px',
+//     cursor: 'pointer',
+//     // color: 'white',
+//     outline: 'none',
+// })
+
+const EchoButton = (props: any) => {
+    const { children } = props;
+    return (
+        <motion.button
+            style={{
+                backgroundColor: '#FFBB00',
+                // backgroundColor: '#0091ff',
+                border: 'none',
+                padding: '10px 20px',
+                cursor: 'pointer',
+                // color: 'white',
+                color: '#000',
+                borderRadius: '2px',
+                outline: 'none',
+                lineHeight: '16px'
+            }}
+            whileTap={{
+                scale: 0.96
+            }}
+            // transition={{
+            //     duration: 0.15
+            // }}
+        >
+            {children}
+        </motion.button>
+    )
+}
+
 const User = () => {
     return (
         <>
@@ -24,10 +62,14 @@ const User = () => {
             <Banner>
                 <BannerUserInfo />
                 <div style={{ textAlign: 'right', marginTop: -35, float: 'right' }}>
-                    <Button size='compact' $style={{ width: '108px' }}>
+                    <EchoButton>
+                        <AiOutlinePlus style={{ marginRight: '6px', verticalAlign: '-0.15em' }} />
+                        关注
+                    </EchoButton>
+                    {/* <Button size='compact' $style={{ width: '108px' }}>
                         <AiOutlinePlus style={{ marginRight: '6px' }} />
                         关注
-                    </Button>
+                    </Button> */}
                     <StatefulTooltip
                         placement='top'
                         content='发消息'
@@ -55,7 +97,8 @@ const User = () => {
                     </StatefulPopover>
                 </div>
             </Banner>
-            <Container>
+            <WaterfallContainer>
+                <>
                 {Array(10).fill(0).map(_ => (
                     <WaterfallCard
                         key={_}
@@ -63,7 +106,8 @@ const User = () => {
                         src='https://ci.xiaohongshu.com/43c5d41d-199e-3e67-88b3-795babfc6ecc?imageView2/2/w/540/format/jpg'
                     />
                 ))}
-            </Container>
+                </>
+            </WaterfallContainer>
         </>
     )
 }

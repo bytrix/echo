@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { styled } from "styletron-react"
 import WaterfallCard from "../components/WaterfallCard"
 import PostModal from "./Post/PostModal"
+import axios from 'axios'
 
 const Wrapper = styled('div', {
     width: '960px',
@@ -15,6 +16,11 @@ const Waterfall = () => {
         setTimeout(() => {
             setLoading(false)
         }, 2000);
+        console.log('axios')
+        axios.get('http://47.114.170.3:10001/posts')
+            .then(res => {
+                console.log('res', res)
+            })
     }, [])
     return (
         <Wrapper>
