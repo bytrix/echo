@@ -28,7 +28,7 @@ const Waterfall = (props: any) => {
         //         console.log('res', res)
         //     })
     }, [])
-    if(posts.length === 0) {
+    if(posts?.length === 0) {
         return (
             <Wrapper>
                 <>
