@@ -12,7 +12,7 @@ then
                 -p 80:80 \
                 -v $(pwd)/nginx.conf:/etc/nginx/conf.d/default.conf \
                 -v $(pwd)/build:/usr/share/nginx/html \
-                --name $CONTAINER_NAME
+                --name $CONTAINER_NAME \
                 nginx
 
 else
