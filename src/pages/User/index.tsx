@@ -5,7 +5,6 @@ import { StatefulTooltip } from 'baseui/tooltip'
 import { StatefulMenu } from 'baseui/menu'
 import React from 'react';
 import { AiFillMessage, AiOutlineMore, AiOutlinePlus } from 'react-icons/ai';
-// import Container from '../../components/css-in-js/Container';
 import WaterfallCard, { WaterfallContainer } from '../../components/WaterfallCard';
 import PostModal from '../Post/PostModal';
 import BannerUserInfo from './BannerUserInfo';
@@ -32,7 +31,8 @@ const EchoButton = (props: any) => {
     return (
         <motion.button
             style={{
-                backgroundColor: '#FFBB00',
+                // backgroundColor: '#FFBB00',
+                backgroundColor: 'transparent',
                 // backgroundColor: '#0091ff',
                 border: 'none',
                 padding: '10px 20px',
@@ -46,11 +46,17 @@ const EchoButton = (props: any) => {
             whileTap={{
                 scale: 0.96
             }}
-            // transition={{
-            //     duration: 0.15
-            // }}
+            transition={{
+                duration: 0.05
+            }}
         >
-            {children}
+            <span
+                style={{
+                    fontSize: '1rem'
+                }}
+            >
+                {children}
+            </span>
         </motion.button>
     )
 }

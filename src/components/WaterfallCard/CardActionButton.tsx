@@ -1,23 +1,37 @@
-import { Button } from "baseui/button"
-import React from "react"
-import { styled } from "styletron-react"
+import { motion } from "framer-motion";
+import React from "react";
 
-const CardActionButton = (props: { children: React.ReactNode }) => (
-    <Button
-        shape="circle"
-        kind="minimal"
-        size="mini"
-    >{props.children}</Button>
-)
-
-const CardActionButtonStat = styled('span', {
-    height: '28px',
-    lineHeight: '28px',
-    marginRight: '6px'
-})
-
-
-export default CardActionButton
-export {
-    CardActionButtonStat
+const CardActionButton = (props: any) => {
+    const { defaultIcon, activeIcon, value, onClick, active, color = 'black' } = props;
+    const icon = active ? activeIcon : defaultIcon;
+    return (
+        <motion.button
+            style={{
+                cursor: 'pointer',
+                color: active ? color : 'rgba(0,0,0,0.3)',
+                border: 'none',
+                outline: 'none',
+                backgroundColor: 'transparent'
+            }}
+            onClick={onClick}
+            whileTap={{
+                scale: 0.95
+            }}
+        >
+            {React.cloneElement(icon, {
+                size: 18
+            })}
+            <span
+                style={{
+                    color: active ? color : 'rgba(0,0,0,0.3)',
+                    lineHeight: '24px',
+                    marginLeft: 2,
+                    verticalAlign: '0.24em',
+                    fontSize: '0.9rem'
+                }}
+            >{value}</span>
+        </motion.button>
+    )
 }
+
+export default CardActionButton;

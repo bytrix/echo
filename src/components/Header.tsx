@@ -1,4 +1,3 @@
-import { Button } from 'baseui/button'
 import {
     ALIGN,
     HeaderNavigation,
@@ -6,12 +5,11 @@ import {
     StyledNavigationList
 } from 'baseui/header-navigation'
 import { StyledLink } from 'baseui/link'
-import { StatefulPopover } from 'baseui/popover'
-import { StatefulTooltip } from 'baseui/tooltip'
 import React from 'react'
-import { AiOutlineBell, AiOutlineHome, AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineBell, AiOutlineHome, AiOutlinePlus, AiOutlineUser } from 'react-icons/ai'
 import { BiSun } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
+import IconButton from './IconButton'
 import Logo from './Logo'
 
 const Header = () => {
@@ -26,27 +24,23 @@ const Header = () => {
             </StyledNavigationList>
             <StyledNavigationList $align={ALIGN.center}>
                 <StyledNavigationItem>
-                    <StatefulTooltip
-                        content='社区'
-                    >
-                        <StyledLink href="/">
-                            <AiOutlineHome size={24} />
-                        </StyledLink>
-                    </StatefulTooltip>
+                    <StyledLink href="/">
+                        <AiOutlineHome size={24} />
+                        {/* <AiFillHome size={24} /> */}
+                    </StyledLink>
                 </StyledNavigationItem>
                 <StyledNavigationItem>
-                    <StatefulTooltip
-                        content='发现'
-                    >
-                        <StyledLink href="/explore">
-                            <BiSun size={24} />
-                        </StyledLink>
-                    </StatefulTooltip>
+                    <StyledLink href="/explore">
+                        <BiSun size={24} />
+                    </StyledLink>
                 </StyledNavigationItem>
             </StyledNavigationList>
             <StyledNavigationList $align={ALIGN.right}>
                 <StyledNavigationItem>
-                    <StatefulPopover
+                    <IconButton
+                        icon={<AiOutlinePlus />}
+                    />
+                    {/* <StatefulPopover
                         placement='bottomRight'
                         content={() => (
                             <StatefulPopover>
@@ -57,14 +51,29 @@ const Header = () => {
                                 }}>消息</div>
                             </StatefulPopover>
                         )}
-                    >
-                        <Button kind='tertiary'>
-                            <AiOutlineBell />
-                        </Button>
-                    </StatefulPopover>
-                    <Button kind='tertiary'>
+                    > */}
+                        <IconButton
+                            style={{
+                                marginRight: 6
+                            }}
+                            icon={<AiOutlineBell />}
+                        />
+                    {/* </StatefulPopover> */}
+                    <IconButton
+                        style={{
+                            border: '1px solid',
+                            borderRadius: '100%',
+                            padding: 0,
+                            width: 28,
+                            height: 28,
+                            marginRight: 12,
+                            verticalAlign: '0.13em'
+                        }}
+                        icon={<AiOutlineUser style={{ verticalAlign: '-0.11em' }} />}
+                    />
+                    {/* <Button kind='tertiary'>
                         <AiOutlineUser />
-                    </Button>
+                    </Button> */}
                 </StyledNavigationItem>
             </StyledNavigationList>
         </HeaderNavigation>

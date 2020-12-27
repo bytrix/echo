@@ -1,16 +1,18 @@
 import { styled } from "baseui"
+import { motion } from "framer-motion"
 import { inject, observer } from "mobx-react"
-import React, { BaseSyntheticEvent } from "react"
-import { AiOutlineHeart, AiOutlineMessage } from "react-icons/ai"
-import WaterfallCardSkeleton from "./WaterfallCardSkeleton"
-import { CardAction, User } from './styles'
-import CardActionButton, { CardActionButtonStat } from "./CardActionButton"
+import React, { useEffect, useRef, useState } from "react"
+import { AiFillHeart, AiFillStar, AiOutlineHeart, AiOutlineStar } from "react-icons/ai"
+import { BiPlay } from 'react-icons/bi'
 import { Link } from "react-router-dom"
+import CardActionButton from "./CardActionButton"
+import { CardAction, User } from './styles'
 
 const CardWrapper = styled('div', {
     width: '220px',
     padding: '10px',
-    breakInside: 'avoid'
+    breakInside: 'avoid',
+    position: 'relative',
 })
 
 export const WaterfallContainer = styled('div', {
@@ -19,18 +21,67 @@ export const WaterfallContainer = styled('div', {
     columnCount: 4
 })
 
-const CardImage = styled('img', {
-    width: '100%',
-    cursor: 'pointer'
-})
+const CardImage = (props: any) => {
+    const { src, onClick } = props;
+    const imageRef = useRef<HTMLImageElement>(null)
+    useEffect(() => {
+        const imageBuffer = new Image()
+        if(src) {
+            imageBuffer.src = src
+            imageBuffer.onload = () => {
+                if(imageRef.current) {
+                    imageRef.current.src = imageBuffer.src
+                }
+            }
+        }
+    }, [])
+    return (
+        <motion.div
+            initial={{
+                translateY: 0
+            }}
+            whileTap={{
+                translateY: 1,
+            }}
+            transition={{
+                duration: 0.1
+            }}
+            style={{
+                position: 'relative'
+            }}
+            onClick={onClick}
+        >
+            <BiPlay
+                style={{
+                    color: 'white',
+                    fontSize: 18,
+                    position: 'absolute',
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                    right: 0,
+                    padding: 2,
+                    borderRadius: '100%',
+                    margin: 8,
+                    cursor: 'pointer'
+                }}
+            />
+            <img
+                style={{
+                    width: '100%',
+                    cursor: 'pointer',
+                    borderRadius: '6px',
+                }}
+                src='data:image/gif;base64,R0lGODlhAQABAIAAAO7u7gAAACH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS4zLWMwMTEgNjYuMTQ1NjYxLCAyMDEyLzAyLzA2LTE0OjU2OjI3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjAyRDFBRkY5NDAyQjExRUI5RjA0QUFDMkVCREJEMzBEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjAyRDFBRkZBNDAyQjExRUI5RjA0QUFDMkVCREJEMzBEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDJEMUFGRjc0MDJCMTFFQjlGMDRBQUMyRUJEQkQzMEQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDJEMUFGRjg0MDJCMTFFQjlGMDRBQUMyRUJEQkQzMEQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4B//79/Pv6+fj39vX08/Lx8O/u7ezr6uno5+bl5OPi4eDf3t3c29rZ2NfW1dTT0tHQz87NzMvKycjHxsXEw8LBwL++vby7urm4t7a1tLOysbCvrq2sq6qpqKempaSjoqGgn56dnJuamZiXlpWUk5KRkI+OjYyLiomIh4aFhIOCgYB/fn18e3p5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhYF9eXVxbWllYV1ZVVFNSUVBPTk1MS0pJSEdGRURDQkFAPz49PDs6OTg3NjU0MzIxMC8uLSwrKikoJyYlJCMiISAfHh0cGxoZGBcWFRQTEhEQDw4NDAsKCQgHBgUEAwIBAAAh+QQAAAAAACwAAAAAAQABAAACAkQBADs='
+                ref={imageRef}
+            />
+        </motion.div>
+    )
+}
 
-const CardTitle = styled('a', {
+const CardTitle = styled('span', {
     textAlign: 'left',
-    padding: '8px',
+    padding: '6px',
     display: 'block',
-    fontSize: '1.1rem',
     textDecoration: 'none',
-    cursor: 'pointer'
 })
 
 const UserAvatar = styled('img', () => {
@@ -61,52 +112,65 @@ type WaterfallCardProps = {
 }
 
 const WaterfallCard = (props: WaterfallCardProps) => {
-    const { src, title, store, loading, onLoad } = props
+    const { src, title, store, onLoad } = props
     const { PostModalStore } = store
-    if(loading) {
-        return (
-            <CardWrapper>
-                <WaterfallCardSkeleton />
-            </CardWrapper>
-        )
-    } else {
-        return (
-            <CardWrapper>
-                <CardImage
-                    src={src}
+    const [ like, setLike ] = useState(false)
+    const [ collect, setCollect ] = useState(false)
+    return (
+        <CardWrapper>
+            <CardImage
+                src={src}
+                onClick={() => {
+                    console.log('PostModalStore', PostModalStore)
+                    PostModalStore.open()
+                }}
+                onLoad={onLoad}
+            />
+            <CardTitle>{title}</CardTitle>
+            <CardAction>
+                <User>
+                    <Link to='/user'>
+                        <UserAvatar
+                            src="https://img.xiaohongshu.com/avatar/5f75d88ca8204500012c1379.jpg@240w_240h_90q_1e_1c_1x.jpg"
+                            />
+                    </Link>
+                    <Username to='/user'>甜菜</Username>
+                </User>
+                <CardActionButton
+                    defaultIcon={<AiOutlineHeart />}
+                    activeIcon={<AiFillHeart />}
+                    value={11}
+                    active={like}
+                    color='red'
                     onClick={() => {
-                        PostModalStore.open()
-                    }}
-                    onLoad={(e: BaseSyntheticEvent) => {
-                        onLoad?.(e)
+                        if(like) {
+                            setLike(false)
+                        } else {
+                            setLike(true)
+                        }
                     }}
                 />
-                <CardTitle
+                <CardActionButton
+                    defaultIcon={<AiOutlineStar />}
+                    activeIcon={<AiFillStar />}
+                    color='#FAC35B'
+                    value={11}
+                    active={collect}
                     onClick={() => {
-                        PostModalStore.open()
+                        if(collect) {
+                            setCollect(false)
+                        } else {
+                            setCollect(true)
+                        }
                     }}
-                >{title}</CardTitle>
-                <CardAction>
-                    <User>
-                        <Link to='/user'>
-                            <UserAvatar
-                                src="https://img.xiaohongshu.com/avatar/5f75d88ca8204500012c1379.jpg@240w_240h_90q_1e_1c_1x.jpg"
-                                />
-                        </Link>
-                        <Username to='/user'>甜菜</Username>
-                    </User>
-                    <CardActionButton>
-                        <AiOutlineHeart size={16} />
-                    </CardActionButton>
-                    <CardActionButtonStat>12</CardActionButtonStat>
-                    <CardActionButton>
-                        <AiOutlineMessage size={16} />
-                    </CardActionButton>
-                    <CardActionButtonStat>76</CardActionButtonStat>
-                </CardAction>
-            </CardWrapper>
-        )
-    }
+                />
+                {/* <CardActionButton
+                    defaultIcon={<AiOutlineMessage />}
+                    value={23}
+                /> */}
+            </CardAction>
+        </CardWrapper>
+    )
 }
 
 export default inject('store')(observer(WaterfallCard))

@@ -2,8 +2,9 @@
 import { styled } from "styletron-react"
 
 const CardAction = styled('div', {
-    padding: '4px 6px',
+    // padding: '4px 6px',
     display: 'flex',
+    // backgroundColor: 'yellow'
 })
 
 const User = styled('div', {

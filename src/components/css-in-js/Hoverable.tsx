@@ -7,6 +7,7 @@ const Hoverable = styled('div', (props: any) => {
         height: `${size}px`,
         cursor: 'pointer',
         backgroundImage: `url(${src})`,
+        borderRadius: '6px',
         backgroundSize: `${size}px`,
         backgroundRepeat: 'no-repeat',
         "::after": {

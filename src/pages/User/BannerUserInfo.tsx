@@ -6,28 +6,30 @@ const UserInfo = styled('div', {
 })
 
 const BtnWithCount = (props: any) => {
-    const { children, count } = props
+    const { children, count } = props;
     return (
         <div style={{
-            cursor: 'pointer',
+            // cursor: 'pointer',
             textAlign: 'center',
             display: 'inline-block',
             padding: '6px 18px',
         }}>
-            <div style={{ fontSize: '0.9rem' }}>{children}</div>
-            <div style={{ marginTop: 4 }}>{count}</div>
+            <div style={{ fontSize: '0.9rem', color: 'rgba(0,0,0,0.5)' }}>{children}</div>
+            <div style={{ marginTop: 4, fontWeight: 'bold' }}>{count}</div>
         </div>
     )
 }
 
 const Username = styled('span', {
-    fontSize: '1.6rem',
+    fontSize: '1.8rem',
+    fontWeight: 'bold'
 })
 
 const Description = styled('div', {
     color: 'rgba(0,0,0,0.5)',
     marginTop: '4px',
-    marginBottom: '34px'
+    marginBottom: '29px',
+    // fontWeight: 'bold'
 })
 
 const Wrapper = styled('div', {
