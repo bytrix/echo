@@ -12,7 +12,6 @@ const Wrapper = styled('div', {
 })
 
 const Waterfall = (props: any) => {
-    const [loading, setLoading] = useState(true);
     const { store } = props;
     const { PostStore } = store;
     const [posts, setPosts] = useState([]);
@@ -20,13 +19,7 @@ const Waterfall = (props: any) => {
         (async () => {
             const _posts = await PostStore.getPosts();
             setPosts(_posts);
-            setLoading(false);
         })();
-        
-        // axios.get('/posts')
-        //     .then(res => {
-        //         console.log('res', res)
-        //     })
     }, [])
     if(posts?.length === 0) {
         return (
@@ -45,15 +38,7 @@ const Waterfall = (props: any) => {
                 <>{posts.map((post: any) => (
                     <WaterfallCard
                         key={post.id}
-                        // src='http://ci.xiaohongshu.com/1165d45c-26c7-5c9f-fa45-daf5026722a1?imageView2/2/w/1080/format/jpg'
-                        src={post.mainImg}
-                        // title='厦门探店·颠倒博物馆'
-                        title={post.title}
-                        loading={loading}
-                        // onLoad={(e: any) => {
-                        //     console.log('首页图片加载结束', e)
-                        //     setLoading(false)
-                        // }}
+                        post={post}
                     />
                 ))}</>
             </Wrapper>

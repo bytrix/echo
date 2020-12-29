@@ -4,6 +4,7 @@ import { inject, observer } from "mobx-react"
 import React, { useEffect, useRef, useState } from "react"
 import { AiFillHeart, AiFillStar, AiOutlineHeart, AiOutlineStar } from "react-icons/ai"
 import { BiPlay } from 'react-icons/bi'
+import { BsImages } from 'react-icons/bs'
 import { Link } from "react-router-dom"
 import CardActionButton from "./CardActionButton"
 import { CardAction, User } from './styles'
@@ -22,7 +23,11 @@ export const WaterfallContainer = styled('div', {
 })
 
 const CardImage = (props: any) => {
-    const { src, onClick } = props;
+    enum CardTypes {
+        IMG,
+        VID
+    }
+    const { src, onClick, type, showImageIcon } = props;
     const imageRef = useRef<HTMLImageElement>(null)
     useEffect(() => {
         const imageBuffer = new Image()
@@ -51,19 +56,44 @@ const CardImage = (props: any) => {
             }}
             onClick={onClick}
         >
-            <BiPlay
-                style={{
-                    color: 'white',
-                    fontSize: 18,
-                    position: 'absolute',
-                    backgroundColor: 'rgba(0,0,0,0.4)',
-                    right: 0,
-                    padding: 2,
-                    borderRadius: '100%',
-                    margin: 8,
-                    cursor: 'pointer'
-                }}
-            />
+            {
+                type === CardTypes.VID && (
+                    <BiPlay
+                        style={{
+                            color: 'white',
+                            fontSize: 18,
+                            position: 'absolute',
+                            // backgroundColor: 'rgba(0,0,0,0.4)',
+                            // filter: 'drop-shadow(0px 0px 0.75px rgba(0,0,0,0.42))',
+                            filter: 'drop-shadow(0 0 .75px rgba(0,0,0,.42)) drop-shadow(0 1px .5px rgba(0,0,0,.18)) drop-shadow(0 2px 3px rgba(0,0,0,.2))',
+                            right: 0,
+                            padding: 2,
+                            // borderRadius: '100%',
+                            margin: 8,
+                            cursor: 'pointer'
+                        }}
+                    />
+                )
+            }
+            {
+                type === CardTypes.IMG && showImageIcon && (
+                    <BsImages
+                        style={{
+                            color: 'white',
+                            fontSize: 18,
+                            position: 'absolute',
+                            // backgroundColor: 'rgba(0,0,0,0.4)',
+                            // filter: 'drop-shadow(0px 0px 0.75px rgba(0,0,0,0.42))',
+                            filter: 'drop-shadow(0 0 .75px rgba(0,0,0,.42)) drop-shadow(0 1px .5px rgba(0,0,0,.18)) drop-shadow(0 2px 3px rgba(0,0,0,.2))',
+                            right: 0,
+                            padding: 2,
+                            // borderRadius: '100%',
+                            margin: 8,
+                            cursor: 'pointer'
+                        }}
+                    />
+                )
+            }
             <img
                 style={{
                     width: '100%',
@@ -104,42 +134,49 @@ const Username = styled(Link, {
 })
 
 type WaterfallCardProps = {
-    src: string,
-    title: string,
+    // src: string,
+    // title: string,
+    post?: any,
     store?: any,
     loading?: boolean,
     onLoad?: Function,
+    // user?: any,
+    // count?: any
 }
 
 const WaterfallCard = (props: WaterfallCardProps) => {
-    const { src, title, store, onLoad } = props
+    const { store, onLoad, post } = props
+    const { title, image, count, user, type } = post
     const { PostModalStore } = store
     const [ like, setLike ] = useState(false)
     const [ collect, setCollect ] = useState(false)
     return (
         <CardWrapper>
             <CardImage
-                src={src}
+                src={image}
                 onClick={() => {
                     console.log('PostModalStore', PostModalStore)
                     PostModalStore.open()
                 }}
                 onLoad={onLoad}
+                type={type}
+                showImageIcon={count.images > 1}
             />
             <CardTitle>{title}</CardTitle>
             <CardAction>
                 <User>
                     <Link to='/user'>
                         <UserAvatar
-                            src="https://img.xiaohongshu.com/avatar/5f75d88ca8204500012c1379.jpg@240w_240h_90q_1e_1c_1x.jpg"
+                            // src="https://img.xiaohongshu.com/avatar/5f75d88ca8204500012c1379.jpg@240w_240h_90q_1e_1c_1x.jpg"
+                            src={user.avatar}
                             />
                     </Link>
-                    <Username to='/user'>甜菜</Username>
+                    <Username to='/user'>{user.username}</Username>
                 </User>
                 <CardActionButton
                     defaultIcon={<AiOutlineHeart />}
                     activeIcon={<AiFillHeart />}
-                    value={11}
+                    value={count.likes}
                     active={like}
                     color='red'
                     onClick={() => {
@@ -154,7 +191,7 @@ const WaterfallCard = (props: WaterfallCardProps) => {
                     defaultIcon={<AiOutlineStar />}
                     activeIcon={<AiFillStar />}
                     color='#FAC35B'
-                    value={11}
+                    value={count.likes}
                     active={collect}
                     onClick={() => {
                         if(collect) {

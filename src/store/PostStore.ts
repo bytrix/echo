@@ -6,7 +6,7 @@ class PostStore {
         makeAutoObservable(this);
     }
     async getPosts() {
-        const posts = await request('/posts');
+        const posts = await request('/api/posts');
         return posts.data;
     }
 }

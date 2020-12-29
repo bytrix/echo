@@ -108,8 +108,6 @@ const User = () => {
                 {Array(10).fill(0).map(_ => (
                     <WaterfallCard
                         key={_}
-                        title='aaa'
-                        src='https://ci.xiaohongshu.com/43c5d41d-199e-3e67-88b3-795babfc6ecc?imageView2/2/w/540/format/jpg'
                     />
                 ))}
                 </>
